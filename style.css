@@ -45,3 +45,8 @@ button {
 .btns {
   margin-top: 10px;
 }
+
+#infoBtn{
+  border: 2px solid blue;
+  color: blue
+}

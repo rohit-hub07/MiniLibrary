@@ -1,23 +1,20 @@
 const apiUrl = "https://api.freeapi.app/api/v1/public/books";
 let currentPage = 1;
 const itemsPerPage = 10;
-// let isLastPage = false;
 let totalPages = 1;
-let items = [];
-let view = false;
+let items = []; //items to store the data of books
 
-// Fetch paginated data from the API
+// fetching data fromt he api
 async function fetchData(page) {
   try {
     const response = await fetch(`${apiUrl}?page=${page}`);
     const result = await response.json();
 
-    // Determine the actual data array based on API structure.
-
+    
+    // storing the data in items array
     items = result.data.data;
+    //getting totalPages
     totalPages = result.data.totalPages;
-    // Check if the current page is the last page.
-    // isLastPage = items.length < itemsPerPage;
     updateButtons();
     document.getElementById("parentDiv").innerHTML = "";
     renderData(items);
@@ -26,17 +23,16 @@ async function fetchData(page) {
   }
 }
 
-// Render the items in the UI
+// getting the data to display it
 function renderData(books) {
   const contentDiv = document.getElementById("parentDiv");
   contentDiv.innerHTML = "";
-
+  //looping through our data
   books.forEach((book) => {
     const bookDiv = document.createElement("div");
     bookDiv.className = "bookCards";
-    const { title, authors, publisher, publishedDate, imageLinks } =
+    const { title, authors, publisher, publishedDate, imageLinks, infoLink } =
       book.volumeInfo;
-    // console.log({ title, authors, publisher, publishedDate })
     const thumbnail = imageLinks?.thumbnail;
     console.log(thumbnail);
     bookDiv.innerHTML = `
@@ -49,20 +45,20 @@ function renderData(books) {
                 }</p>
                 <p><span>Publisher:</span> ${publisher || "Unknown"}</p>
                 <p><span>Date:</span> ${publishedDate || "N/A"}</p>
-                
+                <a href="${infoLink}"><button id="infoBtn">Details</button></a>
             </div>
           `;
     contentDiv.appendChild(bookDiv);
   });
 }
 
-// Enable or disable buttons based on current page and data
+// disabling the buttons it they are in 1st page or last page
 function updateButtons() {
   document.getElementById("prevBtn").disabled = currentPage === 1;
   document.getElementById("nextBtn").disabled = currentPage === totalPages;
 }
 
-// Update the page and fetch new data
+// previous button login
 document.getElementById("prevBtn").addEventListener("click", () => {
   if (currentPage > 1) {
     currentPage--;
@@ -70,6 +66,7 @@ document.getElementById("prevBtn").addEventListener("click", () => {
   }
 });
 
+//next button logic
 document.getElementById("nextBtn").addEventListener("click", () => {
   if (currentPage < totalPages) {
     currentPage++;
@@ -77,7 +74,7 @@ document.getElementById("nextBtn").addEventListener("click", () => {
   }
 });
 
-//sort
+//sorting the data according to the alphabet and date
 document.getElementById("sortByAZ").addEventListener("click", () => {
   items.sort((a, b) => a.volumeInfo.title.localeCompare(b.volumeInfo.title));
   renderData(items);
@@ -103,5 +100,5 @@ document.getElementById("searchBar").addEventListener("input", (e) => {
   renderData(filteredBooks);
 });
 
-// Initial load
+// Initial calling 
 fetchData(currentPage);

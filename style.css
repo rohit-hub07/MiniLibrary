@@ -1,11 +1,11 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
-body{
+body {
   text-align: center;
 }
 
@@ -16,29 +16,32 @@ button {
   border-radius: 25%;
 }
 
-#searchBar{
+#searchBar {
   height: 40px;
   width: 250px;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid black;
+  font-weight: 600;
 }
 
-#parentDiv{
-  display: flex;
+#parentDiv {
   justify-items: center;
   justify-content: space-between;
   gap: 10px;
-  -webkit-box-shadow: -1px 1px 5px 2px rgba(0,0,0,0.47);
--moz-box-shadow: -1px 1px 5px 2px rgba(0,0,0,0.47);
-box-shadow: -1px 1px 5px 2px rgba(0,0,0,0.47);
-height: 100%;
-width: 100%;
-
+  -webkit-box-shadow: -1px 1px 5px 2px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: -1px 1px 5px 2px rgba(0, 0, 0, 0.47);
+  box-shadow: -1px 1px 5px 2px rgba(0, 0, 0, 0.47);
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.bookCards{
+.bookCards {
   border: 2px solid black;
+  display: inline-block;
+  margin: 10px 10px;
 }
 
-.btns{
+.btns {
   margin-top: 10px;
-  
 }
